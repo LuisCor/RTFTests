@@ -1,10 +1,12 @@
 import React from "react";
 import { Canvas } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
-
-import "./styles.css";
 import * as THREE from "three";
 
+import Logo from "./Logo";
+import Floor from "./Floor";
+
+import "./styles.css";
 
 export default function App() {
   return (
@@ -27,10 +29,10 @@ export default function App() {
           >
             <primitive object={new THREE.AxesHelper(10)} />
           </spotLight>
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-            <planeBufferGeometry attach="geometry" args={[25, 15]} />
-            <meshPhongMaterial attach="material" color="gray" />
-          </mesh>
+
+          <Logo />
+          <Floor />
+
           <OrbitControls
             makeDefault
             autoForward={false}
