@@ -1,5 +1,7 @@
 import React from "react";
 import { Canvas } from "react-three-fiber";
+import { OrbitControls } from "@react-three/drei";
+
 import "./styles.css";
 import * as THREE from "three";
 
@@ -29,6 +31,13 @@ export default function App() {
             <planeBufferGeometry attach="geometry" args={[25, 15]} />
             <meshPhongMaterial attach="material" color="gray" />
           </mesh>
+          <OrbitControls
+            makeDefault
+            autoForward={false}
+            dragToLook={true}
+            movementSpeed={1.0}
+            rollSpeed={0.8}
+          />
         </Canvas>
       </div>
       <div className="Controls"></div>
