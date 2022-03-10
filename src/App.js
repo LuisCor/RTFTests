@@ -4,6 +4,7 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
 import Logo from "./Logo";
+import Viking from "./Viking"
 import Floor from "./Floor";
 
 import "./styles.css";
@@ -57,6 +58,7 @@ export default function App() {
           </spotLight>
           <Suspense fallback={null}>
             <Logo rotate={rotateLogo}/>
+            <Viking />
             <Floor />
           </Suspense>
 
