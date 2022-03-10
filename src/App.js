@@ -58,7 +58,8 @@ export default function App() {
           </spotLight>
           <Suspense fallback={null}>
             <Logo rotate={rotateLogo}/>
-            <Viking />
+            <Viking position={[3,0,0]}/>
+            <Viking position={[4,0,0]}/>
             <Floor />
           </Suspense>
 
