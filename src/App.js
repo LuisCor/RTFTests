@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -9,6 +9,30 @@ import Floor from "./Floor";
 import "./styles.css";
 
 export default function App() {
+  const [lightColor, setLightColor] = useState([1, 1, 1]);
+  const [rotateLogo, setRotateLogo] = useState(false);
+  const [lightShow, setLightShow] = useState(false);
+
+  useEffect(() => {
+    let intervalID;
+    if (lightShow) {
+      intervalID = setInterval(() => {
+        setLightColor([Math.random(), Math.random(), Math.random()]);
+      }, 1000);
+    }
+
+    return () => clearInterval(intervalID);
+  }, [lightShow, lightColor]);
+
+  const changeLightShow = () => {
+    setLightShow(!lightShow);
+    console.log("lightshow changed ", lightShow);
+  };
+
+  const changeRotate = () => {
+    setRotateLogo(!rotateLogo);
+  };
+
   return (
     <>
       <div className="App">
@@ -20,18 +44,21 @@ export default function App() {
             penumbra={1}
             position={[5, 25, 20]}
             shadow-bias={-0.0001}
+            color={lightColor}
           />
           <spotLight
             intensity={1.3}
             angle={1}
             penumbra={1}
             position={[20, 10, 0]}
+            color={lightColor}
           >
             <primitive object={new THREE.AxesHelper(10)} />
           </spotLight>
-
-          <Logo />
-          <Floor />
+          <Suspense fallback={null}>
+            <Logo rotate={rotateLogo}/>
+            <Floor />
+          </Suspense>
 
           <OrbitControls
             makeDefault
@@ -42,7 +69,10 @@ export default function App() {
           />
         </Canvas>
       </div>
-      <div className="Controls"></div>
+      <div className="Controls">
+        <button onClick={changeLightShow}>Change Color</button>
+        <button onClick={changeRotate}>Rotate</button>
+      </div>
     </>
   );
 }
